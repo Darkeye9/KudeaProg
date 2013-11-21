@@ -24,16 +24,31 @@ public class KudeaProg {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            reader = new BufferedReader(new FileReader(args[0]+"\\"+args[1]));
+        System.out.println("KudeaProg v1.1 by Dark_eye");
+        System.out.println("http://d-eye.eu");
+        System.out.println("");
+        
+        if (args.length != 4)
+        {
+            System.out.println("Invalid arguments.");
+            System.out.println("Usage:");
+            System.out.println("    java -jar KudeaProg.jar <PROJECTPATH> <PATHTOHEX> <BUILDCONFIG> <COMPORT>");
+            System.out.println("Windows example on MPLABX:");
+            System.out.println("    java -jar C:\\MPLABX\\KudeaProg\\KudeaProg.jar ${ProjectDir} ${ImagePath} ${IMAGE_TYPE} COM3");
+            return;
+        }
+        
+        if (args[2].contains("debug"))
+        {
+           System.out.println("Compiling in debug mode, exiting..."); 
+           return;
+        }
 
-            serialPort = new SerialPort("COM4");
+        try {
+            reader = new BufferedReader(new FileReader(args[0] + "//" + args[1]));
+
+            serialPort = new SerialPort(args[3]);
             try {
-                System.out.println("KudeaProg v1.0 by Dark_eye");
-                System.out.println("http://d-eye.eu");
-                System.out.println("");
-                
-                
                 serialPort.openPort();//Open port
                 serialPort.setParams(9600, 8, 1, 0);//Set params
                 int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
