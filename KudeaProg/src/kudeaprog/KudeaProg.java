@@ -70,7 +70,6 @@ public class KudeaProg {
         public void serialEvent(SerialPortEvent event) {
             if (event.isRXCHAR()) {//If data is available
                 if (event.getEventValue() > 0) {//Check bytes count in the input buffer
-                    //Read data, if 10 bytes available 
                     try {
                         byte buffer[] = serialPort.readBytes(event.getEventValue());
                         acum += new String(buffer);
